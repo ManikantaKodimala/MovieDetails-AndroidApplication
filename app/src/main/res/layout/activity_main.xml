@@ -9,7 +9,8 @@
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E6425E">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/home_screen_pager"
