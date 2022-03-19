@@ -2,4 +2,6 @@
     <string name="app_name">MovieDetails</string>
     <string name="tab_label1">Popular</string>
     <string name="tab_label2">Current Year</string>
+    <string name="movieName">Movie Name</string>
+    <string name="releaseYear">Release Year</string>
 </resources>
