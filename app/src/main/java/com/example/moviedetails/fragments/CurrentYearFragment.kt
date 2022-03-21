@@ -1,4 +1,4 @@
-package com.example.moviedetails
+package com.example.moviedetails.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviedetails.Movie
+import com.example.moviedetails.MovieAdapter
+import com.example.moviedetails.MovieViewModel
+import com.example.moviedetails.R
 import com.example.moviedetails.databinding.FragmentCurrentYearBinding
 import com.example.moviedetails.network.MovieApi
 import com.example.moviedetails.network.MovieRepository
+import com.example.moviedetails.network.RetrofitClient
 import java.util.ArrayList
 
 class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
@@ -38,7 +43,7 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
         currentYearMoviesListRV.adapter = MovieAdapter(movies)
         viewModel.getCurrentYearMovies(movieRepository)
         viewModel.listOfCurrentYearMovies.observe(viewLifecycleOwner){
-            currentYearMoviesListRV.adapter = MovieAdapter(it.listOfMovies)
+            currentYearMoviesListRV.adapter = MovieAdapter(it)
         }
 
     }

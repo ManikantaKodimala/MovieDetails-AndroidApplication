@@ -1,21 +1,20 @@
-package com.example.moviedetails
+package com.example.moviedetails.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.moviedetails.Movie
+import com.example.moviedetails.MovieAdapter
+import com.example.moviedetails.MovieViewModel
+import com.example.moviedetails.R
 import com.example.moviedetails.databinding.FragmentPoppularBinding
 import com.example.moviedetails.network.MovieApi
 import com.example.moviedetails.network.MovieRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.moviedetails.network.RetrofitClient
 import java.util.ArrayList
 
 
@@ -41,13 +40,14 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
             ?: throw RuntimeException("Not a Activity")
 
         val popularMovieListRV = binding.popularMovieList
-        popularMovieListRV.layoutManager = LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
+        popularMovieListRV.layoutManager =
+            LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
 
         val movies = ArrayList<Movie>()
         popularMovieListRV.adapter = MovieAdapter(movies)
         viewModel.getMovies(movieRepository)
         viewModel.listOfMovies.observe(viewLifecycleOwner) {
-            popularMovieListRV.adapter = MovieAdapter(it.listOfMovies)
+            popularMovieListRV.adapter = MovieAdapter(it)
         }
     }
 
