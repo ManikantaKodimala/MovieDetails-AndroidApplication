@@ -11,17 +11,14 @@ data class MovieResponse(
     val language: String,
 
     @SerializedName("release_date",)
-    val releaseDate: Date,
+    val releaseDate: String,
 
     @SerializedName("original_title")
     val title: String,
 
-    @SerializedName("poster_path")
-    val avatar: String,
-
     @SerializedName("overview")
     val overView: String,
 
-    @SerializedName("backdrop_path")
+    @SerializedName("poster_path")
     val imageUrl:String
 )
