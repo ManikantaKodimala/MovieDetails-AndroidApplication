@@ -11,9 +11,9 @@ class MovieDescriptionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_description)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val movieName = intent.extras?.getString("movieName")
-        val overView = intent.extras?.getString("overView")
-        val imageUrl = intent.extras?.getString("imageUrl")
+        val movieName = intent.extras?.getString(MovieName)
+        val overView = intent.extras?.getString(OverView)
+        val imageUrl = intent.extras?.getString(ImageUrl)
         val imageView = findViewById<ImageView>(R.id.moviePosterDiscription)
         findViewById<TextView>(R.id.movieOverview).text = overView
         findViewById<TextView>(R.id.title).text = movieName

@@ -2,7 +2,7 @@ package com.example.moviedetails.network
 
 import com.example.moviedetails.Movie
 
-class MovieRepository(val usersAPI: MovieApi) {
+class MovieRepository(private val usersAPI: MovieApi) {
     suspend fun getMovies(): List<Movie> {
         val userResponse = usersAPI.getMovies()
         return convertDTOIntoUIModel(userResponse.movies)

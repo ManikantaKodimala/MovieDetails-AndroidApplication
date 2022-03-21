@@ -27,9 +27,9 @@ class MovieAdapter(private val movies: List<Movie>) :
         holder.itemView.setOnClickListener {
 
             val intent = Intent(it.context, MovieDescriptionActivity::class.java)
-            intent.putExtra("movieName", holder.movieName.text.toString())
-            intent.putExtra("imageUrl", imageUrl)
-            intent.putExtra("overView", movies[position].overView)
+            intent.putExtra(MovieName, holder.movieName.text.toString())
+            intent.putExtra(ImageUrl, imageUrl)
+            intent.putExtra(OverView, movies[position].overView)
             it.context.startActivity(intent)
         }
     }

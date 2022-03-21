@@ -10,8 +10,8 @@ class ScreenAdapter(fm: FragmentManager, behavior: Int) : FragmentStatePagerAdap
     override fun getCount(): Int =2
 
     private val titles = listOf(
-        "Popular",
-        "Current Year"
+        PopularFragmentName,
+        CurrentYearFragmentName
     )
 
     override fun getItem(position: Int): Fragment {
