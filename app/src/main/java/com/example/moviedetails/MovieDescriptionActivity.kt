@@ -1,19 +1,23 @@
 package com.example.moviedetails
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
-import com.example.moviedetails.databinding.ActivityMovieDescriptionBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 
 class MovieDescriptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_description)
-        val binding = ActivityMovieDescriptionBinding.inflate(layoutInflater)
-        val extras = intent.extras?.getString("movieName")
-        Log.i("intents values",extras.toString())
-        findViewById<TextView>(R.id.movieOverview).setText(extras)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val movieName = intent.extras?.getString("movieName")
+        val overView = intent.extras?.getString("overView")
+        val imageUrl = intent.extras?.getString("imageUrl")
+        val imageView = findViewById<ImageView>(R.id.moviePosterDiscription)
+        findViewById<TextView>(R.id.movieOverview).text = overView
+        findViewById<TextView>(R.id.title).text = movieName
+        val imagePath = "https://image.tmdb.org/t/p/w200$imageUrl"
+        Glide.with(this).load(imagePath).into(imageView)
     }
 }

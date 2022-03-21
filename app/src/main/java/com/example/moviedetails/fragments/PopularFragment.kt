@@ -49,9 +49,6 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
         viewModel.listOfMovies.observe(viewLifecycleOwner) {
             popularMovieListRV.adapter = MovieAdapter(it.listOfMovies)
         }
-//        view.findViewById<CardView>(R.id.cardView).setOnClickListener{
-//            viewModel.selected
-//        }
     }
 
 }
