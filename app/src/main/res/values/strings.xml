@@ -4,4 +4,6 @@
     <string name="tab_label2">Current Year</string>
     <string name="movieName">Movie Name</string>
     <string name="releaseYear">Release Year</string>
+    <string name="search">search</string>
+    <string name="enter_movie_name">enter movie name</string>
 </resources>
