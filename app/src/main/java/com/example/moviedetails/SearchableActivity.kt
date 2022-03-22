@@ -17,7 +17,7 @@ class SearchableActivity : AppCompatActivity() {
         setContentView(R.layout.activity_searchable)
 
         val searchRV = findViewById<RecyclerView>(R.id.searchResults)
-        val viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         val movieRepository =
             MovieRepository(RetrofitClient.getClient().create(MovieApi::class.java))
         searchRV.layoutManager =
