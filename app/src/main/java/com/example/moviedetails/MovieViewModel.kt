@@ -12,8 +12,8 @@ import java.util.*
 
 class MovieViewModel: ViewModel() {
 
-    private val _listOfMovies = MutableLiveData(listOf(Movie(0, "", "", "", "","")))
-    private val _listOfCurrentYearMovies=MutableLiveData(listOf(Movie(0, "", "", "", "","")))
+    private val _listOfMovies = MutableLiveData<List<Movie>>()
+    private val _listOfCurrentYearMovies=MutableLiveData<List<Movie>>()
 
     val listOfMovies: MutableLiveData<List<Movie>> = _listOfMovies
     val listOfCurrentYearMovies:LiveData<List<Movie>> = _listOfCurrentYearMovies
