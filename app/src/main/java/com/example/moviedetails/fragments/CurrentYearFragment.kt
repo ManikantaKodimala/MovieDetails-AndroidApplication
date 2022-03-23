@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moviedetails.Movie
-import com.example.moviedetails.MovieAdapter
-import com.example.moviedetails.MovieViewModel
-import com.example.moviedetails.R
+import com.example.moviedetails.*
 import com.example.moviedetails.databinding.FragmentCurrentYearBinding
 import com.example.moviedetails.network.MovieApi
 import com.example.moviedetails.network.MovieRepository
@@ -34,14 +31,13 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel=activity?.let{ViewModelProvider(it)[MovieViewModel::class.java] }
-            ?: throw RuntimeException("Not a Activity")
+        val viewModel=ViewModelProvider(this, ViewModelFactory(null,movieRepository)).get(MovieViewModel::class.java)
 
         val currentYearMoviesListRV = binding.currentYearMoviesList
         currentYearMoviesListRV.layoutManager= LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
         val movies = ArrayList<Movie>()
         currentYearMoviesListRV.adapter = MovieAdapter(movies)
-        viewModel.getCurrentYearMovies(movieRepository)
+        viewModel.getCurrentYearMovies()
         viewModel.listOfCurrentYearMovies.observe(viewLifecycleOwner){
             currentYearMoviesListRV.adapter = MovieAdapter(it)
         }

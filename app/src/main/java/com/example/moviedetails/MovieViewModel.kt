@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class MovieViewModel: ViewModel() {
+class MovieViewModel(private val movieRepository: MovieRepository): ViewModel() {
 
     private val _listOfMovies = MutableLiveData<List<Movie>>()
     private val _listOfCurrentYearMovies=MutableLiveData<List<Movie>>()
@@ -18,13 +18,13 @@ class MovieViewModel: ViewModel() {
     val listOfMovies: MutableLiveData<List<Movie>> = _listOfMovies
     val listOfCurrentYearMovies:LiveData<List<Movie>> = _listOfCurrentYearMovies
 
-    fun getMovies(movieRepository: MovieRepository) {
+    fun getMovies() {
         CoroutineScope(Dispatchers.IO).launch {
             _listOfMovies.postValue(movieRepository.getMovies())
         }
     }
 
-    fun getCurrentYearMovies(movieRepository : MovieRepository) {
+    fun getCurrentYearMovies() {
         val year = Calendar.getInstance().get(Calendar.YEAR)
         viewModelScope.launch{
             _listOfCurrentYearMovies.postValue(movieRepository.getMoviesByYear(year))

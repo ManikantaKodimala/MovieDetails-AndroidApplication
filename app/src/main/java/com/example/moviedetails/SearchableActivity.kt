@@ -17,15 +17,16 @@ class SearchableActivity : AppCompatActivity() {
         setContentView(R.layout.activity_searchable)
 
         val searchRV = findViewById<RecyclerView>(R.id.searchResults)
-        val viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         val movieRepository =
             MovieRepository(RetrofitClient.getClient().create(MovieApi::class.java))
+        val viewModel=ViewModelProvider(this,ViewModelFactory(null,movieRepository)).get(SearchViewModel::class.java)
+
         searchRV.layoutManager =
             LinearLayoutManager(this).apply { orientation = LinearLayoutManager.VERTICAL }
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                viewModel.searchMovie(query, movieRepository)
+                viewModel.searchMovie(query)
                 return false
             }
 

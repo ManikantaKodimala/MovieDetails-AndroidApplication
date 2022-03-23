@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviedetails.network.MovieRepository
 import kotlinx.coroutines.launch
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(private val movieRepository: MovieRepository) : ViewModel() {
     private val _listOfSearchedMoviesByTitle= MutableLiveData(listOf(Movie(0, "", "", "", "","")))
     val listOfSearchedMoviesByTitle: LiveData<List<Movie>> = _listOfSearchedMoviesByTitle
 
-    fun searchMovie(query: String, movieRepository: MovieRepository) {
+    fun searchMovie(query: String) {
         viewModelScope.launch {
             _listOfSearchedMoviesByTitle.postValue(movieRepository.getMoviesByTitle(query))
         }
