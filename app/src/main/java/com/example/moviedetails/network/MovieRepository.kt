@@ -1,5 +1,7 @@
 package com.example.moviedetails.network
 
+import com.example.moviedetails.BASEIMAGEURL
+import com.example.moviedetails.BASE_URL
 import com.example.moviedetails.Movie
 
 class MovieRepository(private val usersAPI: MovieApi) {
@@ -22,8 +24,9 @@ class MovieRepository(private val usersAPI: MovieApi) {
         return movieResponses.filter {
             !it.imageUrl.isNullOrEmpty()
         }.map {
+            val imageUrl = BASEIMAGEURL+it.imageUrl
             Movie(
-                it.id, it.title, it.language, it.releaseDate, it.overView, it.imageUrl
+                it.id, it.title, it.language, it.releaseDate, it.overView, imageUrl
             )
         }
     }
