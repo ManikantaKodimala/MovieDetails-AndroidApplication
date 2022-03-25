@@ -1,9 +1,6 @@
 package com.example.moviedetails
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,8 +21,6 @@ class MovieAdapter(private val movies: List<Movie>) :
     override fun onBindViewHolder(holder: MovieItemRecyclerViewHolder, position: Int) {
         holder.movieName.text = movies[position].title
         holder.releaseYear.text = movies[position].releaseDate
-        holder.imageUrl=movies[position].imageUrl
-        holder.movieOverView=movies[position].overView
         val imageUrl = movies[position].imageUrl
         Glide.with(holder.itemView.context).load(imageUrl).into(holder.moviePoster)
     }

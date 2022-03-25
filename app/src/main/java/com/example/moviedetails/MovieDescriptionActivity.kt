@@ -11,13 +11,11 @@ class MovieDescriptionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_description)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val movieName = intent.extras?.getString(MovieName)
-        val overView = intent.extras?.getString(OverView)
-        val imageUrl = intent.extras?.getString(ImageUrl)
+        val movieDetails = intent.extras?.getParcelable<Movie>(MOVIE)
         val imageView = findViewById<ImageView>(R.id.moviePosterDiscription)
-        findViewById<TextView>(R.id.movieOverview).text = overView
-        findViewById<TextView>(R.id.title).text = movieName
-        val imagePath = "https://image.tmdb.org/t/p/w200$imageUrl"
+        findViewById<TextView>(R.id.movieOverview).text =movieDetails?.overView
+        findViewById<TextView>(R.id.title).text = movieDetails?.title
+        val imagePath = movieDetails?.imageUrl
         Glide.with(this).load(imagePath).into(imageView)
     }
 }
