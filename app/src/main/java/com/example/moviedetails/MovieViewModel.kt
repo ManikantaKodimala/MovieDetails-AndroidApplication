@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviedetails.network.MovieRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -19,7 +17,7 @@ class MovieViewModel(private val movieRepository: MovieRepository): ViewModel() 
     val listOfCurrentYearMovies:LiveData<List<Movie>> = _listOfCurrentYearMovies
 
     fun getMovies() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             _listOfMovies.postValue(movieRepository.getMovies())
         }
     }
