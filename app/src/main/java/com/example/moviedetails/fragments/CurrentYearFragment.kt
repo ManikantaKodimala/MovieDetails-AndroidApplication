@@ -1,5 +1,6 @@
 package com.example.moviedetails.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,8 @@ import com.example.moviedetails.network.RetrofitClient
 import java.util.ArrayList
 
 class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
-    lateinit var binding: FragmentCurrentYearBinding
-    lateinit var movieRepository: MovieRepository
+    private lateinit var binding: FragmentCurrentYearBinding
+    private lateinit var movieRepository: MovieRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,16 +32,38 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel=ViewModelProvider(this, ViewModelFactory(null,movieRepository)).get(MovieViewModel::class.java)
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(null, movieRepository)
+        )[MovieViewModel::class.java]
 
         val currentYearMoviesListRV = binding.currentYearMoviesList
-        currentYearMoviesListRV.layoutManager= LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
+        currentYearMoviesListRV.layoutManager =
+            LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
         val movies = ArrayList<Movie>()
         currentYearMoviesListRV.adapter = MovieAdapter(movies)
         viewModel.getCurrentYearMovies()
-        viewModel.listOfCurrentYearMovies.observe(viewLifecycleOwner){
+        viewModel.listOfCurrentYearMovies.observe(viewLifecycleOwner) {
             currentYearMoviesListRV.adapter = MovieAdapter(it)
         }
+
+        currentYearMoviesListRV.addOnItemTouchListener(
+            CustomRecyclerItemClickListener(
+                context,
+                currentYearMoviesListRV,
+                object : CustomRecyclerItemClickListener.OnItemClickListener {
+
+                    override fun onItemClick(view: View?, position: Int) {
+
+                        val intent = Intent(context, MovieDescriptionActivity::class.java)
+                        intent.putExtra(MOVIE, viewModel.listOfCurrentYearMovies.value?.get(position))
+                        startActivity(intent)
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                    }
+                })
+        )
 
     }
 

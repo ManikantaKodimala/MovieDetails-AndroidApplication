@@ -1,5 +1,6 @@
 package com.example.moviedetails.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import com.example.moviedetails.databinding.FragmentPoppularBinding
 import com.example.moviedetails.network.MovieApi
 import com.example.moviedetails.network.MovieRepository
 import com.example.moviedetails.network.RetrofitClient
-import java.util.ArrayList
 
 
 class PopularFragment : Fragment(R.layout.fragment_poppular) {
@@ -34,18 +34,37 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel=ViewModelProvider(this,ViewModelFactory(null,movieRepository)).get(MovieViewModel::class.java)
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(null, movieRepository)
+        )[MovieViewModel::class.java]
         val popularMovieListRV = binding.popularMovieList
         popularMovieListRV.layoutManager =
             LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
 
         val movies = ArrayList<Movie>()
-        popularMovieListRV.adapter = MovieAdapter(movies)
+        val movieAdapter = MovieAdapter(movies)
+        popularMovieListRV.adapter = movieAdapter
         viewModel.getMovies()
         viewModel.listOfMovies.observe(viewLifecycleOwner) {
             popularMovieListRV.adapter = MovieAdapter(it)
-
         }
-    }
+        popularMovieListRV.addOnItemTouchListener(
+            CustomRecyclerItemClickListener(
+                context,
+                popularMovieListRV,
+                object : CustomRecyclerItemClickListener.OnItemClickListener {
 
+                    override fun onItemClick(view: View?, position: Int) {
+
+                        val intent = Intent(context, MovieDescriptionActivity::class.java)
+                        intent.putExtra(MOVIE, viewModel.listOfMovies.value?.get(position))
+                        startActivity(intent)
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                    }
+                })
+        )
+    }
 }
