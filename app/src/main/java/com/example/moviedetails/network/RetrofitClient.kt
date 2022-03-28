@@ -11,7 +11,7 @@ interface RetrofitClient {
         private val INSTANCE : Retrofit?=null
 
         fun getClient(): Retrofit {
-            val okHttpClient = OkHttpClient.Builder().build()
+            val okHttpClient = OkHttpClient.Builder().addInterceptor(CustomHttpInterceptor()).build()
             return INSTANCE ?: synchronized(this){
                 return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
