@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviedetails.*
 import com.example.moviedetails.databinding.FragmentPoppularBinding
@@ -41,13 +42,12 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
         val popularMovieListRV = binding.popularMovieList
         popularMovieListRV.layoutManager =
             LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
-
-        val movies = ArrayList<Movie>()
-        val movieAdapter = MovieAdapter(movies)
+        val movieAdapter = MovieAdapter()
         popularMovieListRV.adapter = movieAdapter
         viewModel.getMovies()
         viewModel.listOfMovies.observe(viewLifecycleOwner) {
-            popularMovieListRV.adapter = MovieAdapter(it)
+            movieAdapter.upDateMovieListItems(it)
+
         }
         popularMovieListRV.addOnItemTouchListener(
             CustomRecyclerItemClickListener(
@@ -66,5 +66,8 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
                     }
                 })
         )
+
     }
+
+
 }

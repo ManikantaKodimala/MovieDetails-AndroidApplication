@@ -1,7 +1,6 @@
 package com.example.moviedetails.network
 
 import com.example.moviedetails.BASEIMAGEURL
-import com.example.moviedetails.BASE_URL
 import com.example.moviedetails.Movie
 
 class MovieRepository(private val usersAPI: MovieApi) {
@@ -22,7 +21,7 @@ class MovieRepository(private val usersAPI: MovieApi) {
 
     private fun convertDTOIntoUIModel(movieResponses: List<MovieResponse>): List<Movie> {
         return movieResponses.filter {
-            !it.imageUrl.isNullOrEmpty()
+            !(it.imageUrl.isNullOrEmpty() and it.releaseDate.isNullOrEmpty() and it.title.isNullOrEmpty() and it.releaseDate.isNullOrEmpty())
         }.map {
             val imageUrl = BASEIMAGEURL+it.imageUrl
             Movie(

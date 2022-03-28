@@ -27,7 +27,8 @@ class SearchableActivity : AppCompatActivity() {
 
         searchRV.layoutManager =
             LinearLayoutManager(this).apply { orientation = LinearLayoutManager.VERTICAL }
-
+        val movieAdapter = MovieAdapter()
+        searchRV.adapter = movieAdapter
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.searchMovie(query)
@@ -40,7 +41,7 @@ class SearchableActivity : AppCompatActivity() {
         })
 
         viewModel.listOfSearchedMoviesByTitle.observe(this) {
-            searchRV.adapter = MovieAdapter(it)
+            movieAdapter.upDateMovieListItems(it)
         }
 
         searchRV.addOnItemTouchListener(

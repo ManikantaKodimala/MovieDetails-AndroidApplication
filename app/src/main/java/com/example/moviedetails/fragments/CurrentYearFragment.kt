@@ -41,10 +41,11 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
         currentYearMoviesListRV.layoutManager =
             LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
         val movies = ArrayList<Movie>()
-        currentYearMoviesListRV.adapter = MovieAdapter(movies)
+        val movieAdapter = MovieAdapter()
+        currentYearMoviesListRV.adapter = movieAdapter
         viewModel.getCurrentYearMovies()
         viewModel.listOfCurrentYearMovies.observe(viewLifecycleOwner) {
-            currentYearMoviesListRV.adapter = MovieAdapter(it)
+            movieAdapter.upDateMovieListItems(it)
         }
 
         currentYearMoviesListRV.addOnItemTouchListener(
