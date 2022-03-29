@@ -1,7 +1,6 @@
 package com.example.moviedetails.network
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class MovieResponse(
     @SerializedName("id")
@@ -21,4 +20,8 @@ data class MovieResponse(
 
     @SerializedName("poster_path")
     val imageUrl:String
-)
+){
+    fun checkAnyNullValuePresent():Boolean{
+        return (this.imageUrl.isNullOrEmpty() or this.releaseDate.isNullOrEmpty() or this.title.isNullOrEmpty() or this.releaseDate.isNullOrEmpty())
+    }
+}
