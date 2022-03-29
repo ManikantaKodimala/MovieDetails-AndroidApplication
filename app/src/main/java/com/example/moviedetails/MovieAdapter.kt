@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieAdapter() :
+class MovieAdapter :
     RecyclerView.Adapter<MovieItemRecyclerViewHolder>() {
     private var movies = ArrayList<Movie>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemRecyclerViewHolder {
