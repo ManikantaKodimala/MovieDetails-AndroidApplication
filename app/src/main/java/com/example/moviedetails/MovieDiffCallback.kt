@@ -16,13 +16,10 @@ class MovieDiffCallback (private val oldListOfMovies:List<Movie> , private val n
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldMovie= this.oldListOfMovies.get(oldItemPosition)
-        val newMovie=  this.newListOfMovies.get(newItemPosition)
+        val oldMovie= this.oldListOfMovies[oldItemPosition]
+        val newMovie= this.newListOfMovies[newItemPosition]
 
-        return oldMovie.title.equals(newMovie.title)
+        return oldMovie.title == newMovie.title
     }
 
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        return super.getChangePayload(oldItemPosition, newItemPosition)
-    }
 }
