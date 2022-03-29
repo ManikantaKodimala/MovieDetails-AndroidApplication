@@ -6,13 +6,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.moviedetails.fragments.CurrentYearFragment
 import com.example.moviedetails.fragments.PopularFragment
 
-class ScreenAdapter(fm: FragmentManager, behavior: Int) : FragmentStatePagerAdapter(fm, behavior) {
+class ScreenAdapter(private val titles:Array<String>,fm: FragmentManager, behavior: Int) : FragmentStatePagerAdapter(fm, behavior) {
     override fun getCount(): Int =2
 
-    private val titles = listOf(
-        PopularFragmentName,
-        CurrentYearFragmentName
-    )
 
     override fun getItem(position: Int): Fragment {
        return when(position){

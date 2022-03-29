@@ -6,4 +6,11 @@
     <string name="releaseYear">Release Year</string>
     <string name="search">search</string>
     <string name="enter_movie_name">enter movie name</string>
+    <string-array
+        name="titles_array">
+        <item
+            >Popular movies</item>
+        <item
+            >Current Year Movies</item>
+    </string-array>
 </resources>
