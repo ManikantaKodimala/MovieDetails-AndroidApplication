@@ -10,10 +10,17 @@ import kotlinx.coroutines.launch
 class SearchViewModel(private val movieRepository: MovieRepository) : ViewModel() {
     private val _listOfSearchedMoviesByTitle= MutableLiveData(listOf(Movie(0, "", "", "", "","")))
     val listOfSearchedMoviesByTitle: LiveData<List<Movie>> = _listOfSearchedMoviesByTitle
-
+    private val _error = MutableLiveData<String>()
+    val error:LiveData<String> = _error
     fun searchMovie(query: String) {
         viewModelScope.launch {
-            _listOfSearchedMoviesByTitle.postValue(movieRepository.getMoviesByTitle(query))
+            when(val movieResponseData=movieRepository.getMoviesByTitle(query)){
+                is ResponseData.Movies ->
+                    _listOfSearchedMoviesByTitle.postValue(movieResponseData.listOfMovies)
+                is ResponseData.Error->
+                    _error.postValue(movieResponseData.customException.message)
+            }
+
         }
     }
 }
