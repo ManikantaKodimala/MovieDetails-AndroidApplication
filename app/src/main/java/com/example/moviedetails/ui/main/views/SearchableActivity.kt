@@ -30,7 +30,7 @@ class SearchableActivity : AppCompatActivity() {
             MovieRepository(
                 RetrofitClient.getClient().create(MovieApi::class.java),
                 MovieRoomDataBase.getDatabase(this).movieDao(),
-                isNetworkAvailable()
+               isNetworkAvailable()
             )
         val viewModel = ViewModelProvider(
             this,
@@ -79,13 +79,5 @@ class SearchableActivity : AppCompatActivity() {
     private fun makeToast(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
-    }
-
 }
 

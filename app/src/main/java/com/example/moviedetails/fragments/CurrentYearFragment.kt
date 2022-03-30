@@ -37,7 +37,7 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val isNetworkAvailable = isNetworkAvailable()
+        val isNetworkAvailable = requireContext().isNetworkAvailable()
         movieRepository = MovieRepository(
             RetrofitClient.getClient().create(MovieApi::class.java),
             MovieRoomDataBase.getDatabase(requireContext()).movieDao(),
@@ -74,12 +74,4 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
         )
 
     }
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            requireActivity().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
-    }
-
 }
