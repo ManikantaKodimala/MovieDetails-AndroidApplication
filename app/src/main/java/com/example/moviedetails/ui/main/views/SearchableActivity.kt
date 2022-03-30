@@ -60,6 +60,7 @@ class SearchableActivity : AppCompatActivity() {
         }
         searchRV.addOnItemTouchListener(
             CustomRecyclerItemClickListener(
+                this,
                 object : CustomRecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(position: Int) {
                         val intent =

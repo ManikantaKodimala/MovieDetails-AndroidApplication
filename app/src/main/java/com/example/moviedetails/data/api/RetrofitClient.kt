@@ -8,15 +8,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 interface RetrofitClient {
 
     companion object {
-        private val INSTANCE : Retrofit?=null
+        private var INSTANCE : Retrofit?=null
 
         fun getClient(): Retrofit {
-            val okHttpClient = OkHttpClient.Builder().addInterceptor(CustomHttpInterceptor()).build()
+            val okHttpClient = OkhttpClient.getClient()
             return INSTANCE ?: synchronized(this){
-                return Retrofit.Builder()
+                 INSTANCE=Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .baseUrl(BASE_URL).build()
+                return INSTANCE as Retrofit
             }
         }
     }

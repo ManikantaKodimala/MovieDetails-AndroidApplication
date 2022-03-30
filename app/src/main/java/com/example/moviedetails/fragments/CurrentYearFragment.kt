@@ -59,7 +59,7 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
         }
 
         currentYearMoviesListRV.addOnItemTouchListener(
-            CustomRecyclerItemClickListener(
+            CustomRecyclerItemClickListener(context,
                 object : CustomRecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(position: Int) {
                         val intent = Intent(context, MovieDescriptionActivity::class.java)
