@@ -9,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedetails.*
 import com.example.moviedetails.data.api.MovieApi
 import com.example.moviedetails.data.repository.MovieRepository
 import com.example.moviedetails.data.api.RetrofitClient
+import com.example.moviedetails.databinding.ActivitySearchableBinding
 import com.example.moviedetails.ui.main.adapters.MovieAdapter
 import com.example.moviedetails.ui.main.viewmodels.SearchViewModel
 import com.example.moviedetails.ui.main.viewmodels.ViewModelFactory
@@ -23,9 +23,9 @@ import kotlinx.android.synthetic.main.activity_searchable.*
 class SearchableActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_searchable)
-
-        val searchRV = findViewById<RecyclerView>(R.id.searchResults)
+        val binding = ActivitySearchableBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val searchRV = binding.searchResults
         val movieRepository =
             MovieRepository(
                 RetrofitClient.getClient().create(MovieApi::class.java),

@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviedetails.Movie
 import com.example.moviedetails.ResponseData
 import com.example.moviedetails.data.repository.MovieRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 

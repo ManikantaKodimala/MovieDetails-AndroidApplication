@@ -58,11 +58,8 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
         }
         popularMovieListRV.addOnItemTouchListener(
             CustomRecyclerItemClickListener(
-                context,
-                popularMovieListRV,
                 object : CustomRecyclerItemClickListener.OnItemClickListener {
-
-                    override fun onItemClick(view: View?, position: Int) {
+                    override fun onItemClick(position: Int) {
 
                         val intent = Intent(context, MovieDescriptionActivity::class.java)
                         intent.putExtra(MOVIE, viewModel.listOfMovies.value?.get(position))

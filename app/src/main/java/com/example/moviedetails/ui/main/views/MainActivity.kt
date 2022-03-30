@@ -5,17 +5,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import com.example.moviedetails.R
+import com.example.moviedetails.databinding.ActivityMainBinding
 import com.example.moviedetails.ui.main.adapters.ScreenAdapter
-import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val tabLayout= findViewById<TabLayout>(R.id.home_screen_tab_layout)
-        val viewPager =  findViewById<ViewPager>(R.id.home_screen_pager)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val tabLayout =  binding.homeScreenTabLayout
+        val viewPager = binding.homeScreenPager
         val pagerAdapter = ScreenAdapter(resources.getStringArray(R.array.titles_array),supportFragmentManager,tabLayout.tabCount)
         viewPager.adapter=pagerAdapter
         tabLayout.setupWithViewPager(viewPager)

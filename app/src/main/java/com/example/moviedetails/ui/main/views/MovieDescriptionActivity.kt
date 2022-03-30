@@ -8,11 +8,13 @@ import com.bumptech.glide.Glide
 import com.example.moviedetails.utils.MOVIE
 import com.example.moviedetails.Movie
 import com.example.moviedetails.R
+import com.example.moviedetails.databinding.ActivityMovieDescriptionBinding
 
 class MovieDescriptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_description)
+        val binding = ActivityMovieDescriptionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val movieDetails = intent.extras?.getParcelable<Movie>(MOVIE)
         val imageView = findViewById<ImageView>(R.id.moviePosterDiscription)
