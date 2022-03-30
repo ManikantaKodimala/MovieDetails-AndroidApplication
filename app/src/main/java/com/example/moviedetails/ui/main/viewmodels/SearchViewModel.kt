@@ -1,10 +1,12 @@
-package com.example.moviedetails
+package com.example.moviedetails.ui.main.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviedetails.network.MovieRepository
+import com.example.moviedetails.Movie
+import com.example.moviedetails.ResponseData
+import com.example.moviedetails.data.repository.MovieRepository
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val movieRepository: MovieRepository) : ViewModel() {
@@ -17,7 +19,7 @@ class SearchViewModel(private val movieRepository: MovieRepository) : ViewModel(
             when(val movieResponseData=movieRepository.getMoviesByTitle(query)){
                 is ResponseData.Movies ->
                     _listOfSearchedMoviesByTitle.postValue(movieResponseData.listOfMovies)
-                is ResponseData.Error->
+                is ResponseData.Error ->
                     _error.postValue(movieResponseData.customException.message)
             }
 

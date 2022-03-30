@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieDetails">
         <activity
-            android:name=".SearchableActivity"
+            android:name=".ui.main.views.SearchableActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieDescriptionActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".ui.main.views.MovieDescriptionActivity"
+            android:parentActivityName=".ui.main.views.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

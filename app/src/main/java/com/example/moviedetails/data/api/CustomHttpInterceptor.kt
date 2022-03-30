@@ -1,6 +1,6 @@
-package com.example.moviedetails.network
+package com.example.moviedetails.data.api
 
-import com.example.moviedetails.API_KEY
+import com.example.moviedetails.utils.API_KEY
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

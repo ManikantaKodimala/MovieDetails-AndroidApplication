@@ -1,4 +1,4 @@
-package com.example.moviedetails
+package com.example.moviedetails.ui.main.views
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.example.moviedetails.R
+import com.example.moviedetails.ui.main.adapters.ScreenAdapter
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {

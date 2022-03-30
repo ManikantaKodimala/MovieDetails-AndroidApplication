@@ -1,10 +1,13 @@
-package com.example.moviedetails
+package com.example.moviedetails.ui.main.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviedetails.network.MovieRepository
+import com.example.moviedetails.Movie
+import com.example.moviedetails.ResponseData
+import com.example.moviedetails.data.repository.MovieRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -19,11 +22,11 @@ class MovieViewModel(private val movieRepository: MovieRepository): ViewModel() 
     val error: LiveData<String> = _error
 
     fun getMovies() {
-        viewModelScope.launch {
+        viewModelScope.launch{
             when(val moviesResponse = movieRepository.getMovies()){
                 is ResponseData.Movies ->
                     _listOfMovies.postValue(moviesResponse.listOfMovies)
-                is ResponseData.Error->
+                is ResponseData.Error ->
                     _error.value=moviesResponse.customException.message
             }
         }
@@ -34,8 +37,8 @@ class MovieViewModel(private val movieRepository: MovieRepository): ViewModel() 
         viewModelScope.launch{
             when(val moviesResponse = movieRepository.getMoviesByYear(year)){
                 is ResponseData.Movies ->
-                    _listOfCurrentYearMovies.value=moviesResponse.listOfMovies
-                is ResponseData.Error->
+                    _listOfCurrentYearMovies.postValue(moviesResponse.listOfMovies)
+                is ResponseData.Error ->
                     _error.value=moviesResponse.customException.message
             }
         }

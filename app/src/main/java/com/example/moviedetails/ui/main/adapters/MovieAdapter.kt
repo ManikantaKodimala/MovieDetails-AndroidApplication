@@ -1,10 +1,14 @@
-package com.example.moviedetails
+package com.example.moviedetails.ui.main.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviedetails.Movie
+import com.example.moviedetails.MovieDiffCallback
+import com.example.moviedetails.MovieItemRecyclerViewHolder
+import com.example.moviedetails.R
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieItemRecyclerViewHolder>() {

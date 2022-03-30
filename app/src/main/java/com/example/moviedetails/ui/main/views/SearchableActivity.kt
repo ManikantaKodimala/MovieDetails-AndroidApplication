@@ -1,19 +1,23 @@
-package com.example.moviedetails
+package com.example.moviedetails.ui.main.views
 
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviedetails.network.MovieApi
-import com.example.moviedetails.network.MovieRepository
-import com.example.moviedetails.network.RetrofitClient
+import com.example.moviedetails.*
+import com.example.moviedetails.data.api.MovieApi
+import com.example.moviedetails.data.repository.MovieRepository
+import com.example.moviedetails.data.api.RetrofitClient
+import com.example.moviedetails.ui.main.adapters.MovieAdapter
+import com.example.moviedetails.ui.main.viewmodels.SearchViewModel
+import com.example.moviedetails.ui.main.viewmodels.ViewModelFactory
+import com.example.moviedetails.utils.MOVIE
 import kotlinx.android.synthetic.main.activity_searchable.*
 
 class SearchableActivity : AppCompatActivity() {
@@ -51,17 +55,13 @@ class SearchableActivity : AppCompatActivity() {
         viewModel.listOfSearchedMoviesByTitle.observe(this) {
             movieAdapter.upDateMovieListItems(it)
         }
-        viewModel.error.observe(this){
+        viewModel.error.observe(this) {
             makeToast(it)
         }
         searchRV.addOnItemTouchListener(
             CustomRecyclerItemClickListener(
-                this,
-                searchRV,
                 object : CustomRecyclerItemClickListener.OnItemClickListener {
-
-                    override fun onItemClick(view: View?, position: Int) {
-
+                    override fun onItemClick(position: Int) {
                         val intent =
                             Intent(this@SearchableActivity, MovieDescriptionActivity::class.java)
                         intent.putExtra(
@@ -70,15 +70,13 @@ class SearchableActivity : AppCompatActivity() {
                         )
                         startActivity(intent)
                     }
-
-                    override fun onLongItemClick(view: View?, position: Int) {
-                    }
-                })
+                }
+            )
         )
     }
 
     private fun makeToast(message: String?) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun isNetworkAvailable(): Boolean {

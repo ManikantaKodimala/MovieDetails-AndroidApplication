@@ -1,6 +1,6 @@
-package com.example.moviedetails.network
+package com.example.moviedetails.data.api
 
-import com.example.moviedetails.BASE_URL
+import com.example.moviedetails.utils.BASE_URL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

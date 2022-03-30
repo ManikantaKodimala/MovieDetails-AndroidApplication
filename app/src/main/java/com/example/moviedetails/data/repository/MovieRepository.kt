@@ -1,8 +1,11 @@
-package com.example.moviedetails.network
+package com.example.moviedetails.data.repository
 
 import com.example.moviedetails.*
+import com.example.moviedetails.data.api.MovieApi
+import com.example.moviedetails.data.model.MovieResponse
+import com.example.moviedetails.utils.BASEIMAGEURL
 
-class MovieRepository(private val usersAPI: MovieApi, private val movieDao: MovieDao,private val isNetWorkAvailable :Boolean) {
+class MovieRepository(private val usersAPI: MovieApi, private val movieDao: MovieDao, private val isNetWorkAvailable :Boolean) {
     suspend fun getMovies(): ResponseData {
         if (isNetWorkAvailable) {
             return try {

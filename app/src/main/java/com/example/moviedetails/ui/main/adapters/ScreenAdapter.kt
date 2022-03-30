@@ -1,4 +1,4 @@
-package com.example.moviedetails
+package com.example.moviedetails.ui.main.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
