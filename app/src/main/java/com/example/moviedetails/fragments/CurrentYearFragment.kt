@@ -7,15 +7,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviedetails.*
 import com.example.moviedetails.databinding.FragmentCurrentYearBinding
-import com.example.moviedetails.network.MovieApi
-import com.example.moviedetails.network.MovieRepository
-import com.example.moviedetails.network.RetrofitClient
+import com.example.moviedetails.data.api.MovieApi
+import com.example.moviedetails.data.repository.MovieRepository
+import com.example.moviedetails.data.api.RetrofitClient
+import com.example.moviedetails.ui.main.adapters.MovieAdapter
+import com.example.moviedetails.ui.main.viewmodels.MovieViewModel
+import com.example.moviedetails.ui.main.viewmodels.ViewModelFactory
+import com.example.moviedetails.ui.main.views.MovieDescriptionActivity
+import com.example.moviedetails.utils.MOVIE
 
 class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
     private lateinit var binding: FragmentCurrentYearBinding
@@ -56,12 +60,8 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
 
         currentYearMoviesListRV.addOnItemTouchListener(
             CustomRecyclerItemClickListener(
-                context,
-                currentYearMoviesListRV,
                 object : CustomRecyclerItemClickListener.OnItemClickListener {
-
-                    override fun onItemClick(view: View?, position: Int) {
-
+                    override fun onItemClick(position: Int) {
                         val intent = Intent(context, MovieDescriptionActivity::class.java)
                         intent.putExtra(
                             MOVIE,
@@ -70,8 +70,6 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
                         startActivity(intent)
                     }
 
-                    override fun onLongItemClick(view: View?, position: Int) {
-                    }
                 })
         )
 

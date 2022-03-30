@@ -12,9 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviedetails.*
 import com.example.moviedetails.databinding.FragmentPoppularBinding
-import com.example.moviedetails.network.MovieApi
-import com.example.moviedetails.network.MovieRepository
-import com.example.moviedetails.network.RetrofitClient
+import com.example.moviedetails.data.api.MovieApi
+import com.example.moviedetails.data.repository.MovieRepository
+import com.example.moviedetails.data.api.RetrofitClient
+import com.example.moviedetails.ui.main.adapters.MovieAdapter
+import com.example.moviedetails.ui.main.viewmodels.MovieViewModel
+import com.example.moviedetails.ui.main.viewmodels.ViewModelFactory
+import com.example.moviedetails.ui.main.views.MovieDescriptionActivity
+import com.example.moviedetails.utils.MOVIE
 
 
 class PopularFragment : Fragment(R.layout.fragment_poppular) {
@@ -62,9 +67,6 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
                         val intent = Intent(context, MovieDescriptionActivity::class.java)
                         intent.putExtra(MOVIE, viewModel.listOfMovies.value?.get(position))
                         startActivity(intent)
-                    }
-
-                    override fun onLongItemClick(view: View?, position: Int) {
                     }
                 }
             )
