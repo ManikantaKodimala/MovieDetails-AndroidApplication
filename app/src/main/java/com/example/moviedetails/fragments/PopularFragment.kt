@@ -1,8 +1,6 @@
 package com.example.moviedetails.fragments
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,31 +49,16 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
             LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
         val movieAdapter = MovieAdapter()
         popularMovieListRV.adapter = movieAdapter
+        movieAdapter.setOnItemClickListener(object : MovieAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(context, MovieDescriptionActivity::class.java)
+                intent.putExtra(MOVIE, viewModel.listOfMovies.value?.get(position))
+                startActivity(intent)
+            }
+        })
         viewModel.getMovies()
         viewModel.listOfMovies.observe(viewLifecycleOwner) {
             movieAdapter.upDateMovieListItems(it)
-
         }
-        popularMovieListRV.addOnItemTouchListener(
-            CustomRecyclerItemClickListener(
-                context,
-                object : CustomRecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(position: Int) {
-
-                        val intent = Intent(context, MovieDescriptionActivity::class.java)
-                        intent.putExtra(MOVIE, viewModel.listOfMovies.value?.get(position))
-                        startActivity(intent)
-                    }
-                }
-            )
-        )
     }
-
-//     fun isNetworkAvailable(): Boolean {
-//        val connectivityManager =
-//            requireActivity().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//
-//        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-//        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
-//    }
 }

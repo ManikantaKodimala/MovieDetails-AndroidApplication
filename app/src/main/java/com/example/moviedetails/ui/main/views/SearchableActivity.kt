@@ -1,8 +1,6 @@
 package com.example.moviedetails.ui.main.views
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +28,7 @@ class SearchableActivity : AppCompatActivity() {
             MovieRepository(
                 RetrofitClient.getClient().create(MovieApi::class.java),
                 MovieRoomDataBase.getDatabase(this).movieDao(),
-               isNetworkAvailable()
+                isNetworkAvailable()
             )
         val viewModel = ViewModelProvider(
             this,
@@ -41,6 +39,13 @@ class SearchableActivity : AppCompatActivity() {
             LinearLayoutManager(this).apply { orientation = LinearLayoutManager.VERTICAL }
         val movieAdapter = MovieAdapter()
         searchRV.adapter = movieAdapter
+        movieAdapter.setOnItemClickListener(object : MovieAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(baseContext, MovieDescriptionActivity::class.java)
+                intent.putExtra(MOVIE, viewModel.listOfSearchedMoviesByTitle.value?.get(position))
+                startActivity(intent)
+            }
+        })
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.searchMovie(query)
@@ -48,6 +53,7 @@ class SearchableActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.searchMovie(newText)
                 return false
             }
         })
@@ -58,22 +64,6 @@ class SearchableActivity : AppCompatActivity() {
         viewModel.error.observe(this) {
             makeToast(it)
         }
-        searchRV.addOnItemTouchListener(
-            CustomRecyclerItemClickListener(
-                this,
-                object : CustomRecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(position: Int) {
-                        val intent =
-                            Intent(this@SearchableActivity, MovieDescriptionActivity::class.java)
-                        intent.putExtra(
-                            MOVIE,
-                            viewModel.listOfSearchedMoviesByTitle.value?.get(position)
-                        )
-                        startActivity(intent)
-                    }
-                }
-            )
-        )
     }
 
     private fun makeToast(message: String?) {

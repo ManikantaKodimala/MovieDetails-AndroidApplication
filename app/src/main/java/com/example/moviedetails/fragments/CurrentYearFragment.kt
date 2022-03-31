@@ -53,25 +53,16 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
             LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.VERTICAL }
         val movieAdapter = MovieAdapter()
         currentYearMoviesListRV.adapter = movieAdapter
+        movieAdapter.setOnItemClickListener(object : MovieAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(context, MovieDescriptionActivity::class.java)
+                intent.putExtra(MOVIE, viewModel.listOfCurrentYearMovies.value?.get(position))
+                startActivity(intent)
+            }
+        })
         viewModel.getCurrentYearMovies()
         viewModel.listOfCurrentYearMovies.observe(viewLifecycleOwner) {
             movieAdapter.upDateMovieListItems(it)
         }
-
-        currentYearMoviesListRV.addOnItemTouchListener(
-            CustomRecyclerItemClickListener(context,
-                object : CustomRecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(position: Int) {
-                        val intent = Intent(context, MovieDescriptionActivity::class.java)
-                        intent.putExtra(
-                            MOVIE,
-                            viewModel.listOfCurrentYearMovies.value?.get(position)
-                        )
-                        startActivity(intent)
-                    }
-
-                })
-        )
-
     }
 }
