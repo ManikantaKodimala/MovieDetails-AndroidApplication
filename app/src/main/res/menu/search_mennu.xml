@@ -5,9 +5,10 @@
     tools:showIn="toolbar">
 
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/search"
         android:icon="@drawable/abc_ic_search_api_material"
-        android:title="@string/search"
-        app:showAsAction="ifRoom|collapseActionView" />
+        android:title="@string/searchBar"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
 </menu>
