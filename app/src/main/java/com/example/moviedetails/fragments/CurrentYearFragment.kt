@@ -60,8 +60,8 @@ class CurrentYearFragment : Fragment(R.layout.fragment_current_year) {
                 startActivity(intent)
             }
         })
-        viewModel.getCurrentYearMovies()
         viewModel.listOfCurrentYearMovies.observe(viewLifecycleOwner) {
+            binding.progressBar.visibility=View.GONE
             movieAdapter.upDateMovieListItems(it)
         }
     }

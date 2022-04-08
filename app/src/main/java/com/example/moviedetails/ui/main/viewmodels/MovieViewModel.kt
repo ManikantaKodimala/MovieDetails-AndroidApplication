@@ -21,7 +21,12 @@ class MovieViewModel(private val movieRepository: MovieRepository): ViewModel() 
     val listOfCurrentYearMovies:LiveData<List<Movie>> = _listOfCurrentYearMovies
     val error: LiveData<String> = _error
 
-    fun getMovies() {
+    init {
+        getPopularMovies()
+        getCurrentYearMovies()
+    }
+
+    private fun getPopularMovies() {
         viewModelScope.launch(Dispatchers.IO){
             when(val moviesResponse = movieRepository.getMovies()){
                 is ResponseData.Movies ->

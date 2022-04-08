@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviedetails.Movie
 import com.example.moviedetails.ResponseData
 import com.example.moviedetails.data.repository.MovieRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val movieRepository: MovieRepository) : ViewModel() {
@@ -15,7 +16,7 @@ class SearchViewModel(private val movieRepository: MovieRepository) : ViewModel(
     private val _error = MutableLiveData<String>()
     val error:LiveData<String> = _error
     fun searchMovie(query: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             when(val movieResponseData=movieRepository.getMoviesByTitle(query)){
                 is ResponseData.Movies ->
                     _listOfSearchedMoviesByTitle.postValue(movieResponseData.listOfMovies)

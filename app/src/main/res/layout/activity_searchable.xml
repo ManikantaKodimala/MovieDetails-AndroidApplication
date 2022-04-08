@@ -6,19 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.views.SearchableActivity">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        app:queryHint="@string/enter_movie_name"
-        tools:ignore="MissingConstraints" />
+<!--    <androidx.appcompat.widget.SearchView-->
+<!--        android:id="@+id/searchBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:iconifiedByDefault="false"-->
+<!--        app:queryHint="@string/enter_movie_name"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,8 +56,8 @@ class PopularFragment : Fragment(R.layout.fragment_poppular) {
                 startActivity(intent)
             }
         })
-        viewModel.getMovies()
         viewModel.listOfMovies.observe(viewLifecycleOwner) {
+            binding.progressBar1.visibility = View.GONE
             movieAdapter.upDateMovieListItems(it)
         }
     }

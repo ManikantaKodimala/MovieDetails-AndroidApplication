@@ -34,12 +34,15 @@ class MovieRepository(private val usersAPI: MovieApi, private val movieDao: Movi
     }
 
     suspend fun getMoviesByTitle(query: String): ResponseData {
+        if (isNetWorkAvailable) {
         return try {
             val movieResponse = usersAPI.getMoviesByTitle(query)
             ResponseData.Movies(convertDTOIntoUIModel(movieResponse.movies))
         }catch (exception:Exception){
             ResponseData.Error(exception)
         }
+        }
+        return ResponseData.Movies(movieDao.getMoviesByTitle(query))
     }
 
     private fun convertDTOIntoUIModel(movieResponses: List<MovieResponse>): List<Movie> {

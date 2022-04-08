@@ -16,5 +16,7 @@ interface MovieDao {
 
     @Query("select * from movieDetails where releaseDate like :releaseDate||'%' ")
     suspend fun getMoviesByReleaseDate(releaseDate: String):List<Movie>
+    @Query("select * from movieDetails where title like '%'||:query||'%' ")
+    fun getMoviesByTitle(query: String): List<Movie>
 
 }
